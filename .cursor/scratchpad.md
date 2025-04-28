@@ -1,7 +1,120 @@
 # Clara Engine Project Status
 
 ## Background and Motivation
-Clara Engine is a multi-tenant AI bot platform enabling deployment of personalized GPT-powered Twitter bots for multiple clients from a single, centralized codebase. The system needs to be robust, scalable, and maintainable.
+Clara Engine is a multi-tenant AI bot platform that enables the deployment of personalized GPT-powered Twitter bots for multiple clients from a single, centralized codebase.
+
+## Current Implementation Status
+
+### Completed Components
+1. **Database Layer**
+   - ✅ Supabase integration
+   - ✅ Client and Tweet models
+   - ✅ Database migrations
+   - ✅ CRUD operations
+
+2. **OpenAI Integration**
+   - ✅ OpenAI client with async support
+   - ✅ Prompt management system
+   - ✅ Response validation
+   - ✅ Rate limiting
+   - ✅ Caching system
+
+3. **Twitter Integration**
+   - ✅ Twitter client interface
+   - ✅ Real client implementation
+   - ✅ Mock client for testing
+   - ✅ Tweet generation
+   - ✅ Media upload support
+
+4. **Client Management**
+   - ✅ Client manager implementation
+   - ✅ Multi-tenant support
+   - ✅ Client context handling
+
+5. **Core Engine**
+   - ✅ Engine configuration
+   - ✅ Scheduler system
+   - ✅ Health checks
+   - ✅ Graceful shutdown
+
+6. **CLI Interface**
+   - ✅ Basic commands
+   - ✅ Client management
+   - ✅ Status monitoring
+
+7. **Knowledge Base**
+   - ✅ Base implementation
+   - ✅ Vector embeddings
+   - ✅ Similarity search
+
+8. **Testing**
+   - ✅ Unit tests for all components
+   - ✅ Mock implementations
+   - ✅ CI/CD setup
+
+### In Progress / Needs Attention
+1. **Metrics & Monitoring**
+   - ⚠️ Implementation started but needs tests
+   - ⚠️ Dashboard setup needed
+   - ⚠️ Alerting system needed
+
+2. **Documentation**
+   - ⚠️ API documentation needed
+   - ⚠️ Deployment guide needed
+   - ⚠️ User manual needed
+
+3. **Deployment**
+   - ⚠️ Docker setup needed
+   - ⚠️ Production environment configuration
+   - ⚠️ Backup/restore procedures
+
+## Key Challenges and Analysis
+1. **Rate Limiting**: Implemented but needs real-world testing
+2. **Error Handling**: Basic implementation in place, but needs more comprehensive coverage
+3. **Scalability**: Need to test with larger number of clients
+4. **Security**: Need security audit and hardening
+
+## High-level Task Breakdown
+
+### Next Priority Tasks
+1. [ ] Complete metrics implementation
+   - Write tests for MetricsCollector
+   - Implement Prometheus/Grafana dashboards
+   - Add alerting rules
+
+2. [ ] Enhance documentation
+   - API documentation using OpenAPI/Swagger
+   - Deployment guide with infrastructure diagrams
+   - User manual with examples
+
+3. [ ] Setup deployment pipeline
+   - Dockerfile and compose setup
+   - Production environment configuration
+   - Backup and monitoring setup
+
+## Project Status Board
+- [x] Initial project setup
+- [x] Core components implementation
+- [x] Testing framework
+- [x] CI/CD pipeline
+- [ ] Metrics and monitoring
+- [ ] Documentation
+- [ ] Production deployment
+- [ ] Security audit
+
+## Executor's Feedback or Assistance Requests
+- Need to prioritize metrics implementation to ensure proper monitoring in production
+- Documentation should be prioritized before first deployment
+- Security audit needed before production deployment
+
+## Lessons
+1. Always include info useful for debugging in program output
+2. Read files before editing
+3. Run npm audit before proceeding with vulnerabilities
+4. Always ask before using -force git commands
+5. Implement proper error handling and logging from the start
+6. Use type hints consistently across the codebase
+7. Keep test coverage high for all components
 
 ## Stakeholder Requirements (Updated)
 
@@ -243,13 +356,6 @@ MVP Development for 5 Initial Clients:
 - Need to configure Prometheus for metrics
 - Need to define A/B testing data schema
 
-## Lessons
-1. Always include info useful for debugging in the program output
-2. Read files before editing them
-3. Run npm audit before proceeding with dependency updates
-4. Always ask before using the -force git command
-5. Ensure proper error handling and logging in all API integrations
-
 ## Technical Dependencies
 1. Prometheus setup
    - Basic metrics configuration
@@ -267,117 +373,93 @@ MVP Development for 5 Initial Clients:
    - Window validation rules
 
 ## Current Status / Progress Tracking
+We have completed the initial planning phase and have several foundational components in place:
 
-### Completed Features ✅
-1. Project Structure and Setup
-   - Basic project structure established
-   - Development environment configuration
-   - CI/CD pipeline with GitHub Actions
-   - Pre-commit hooks and code quality tools
-   - Documentation templates
-
-2. Database Integration
-   - Supabase integration complete
-   - Initial schema migrations
-   - Database client implementation
-   - CRUD operations for clients and tweets
-   - Row-level security policies
-
-3. OpenAI Integration Core Components
-   - OpenAIClient implementation with Azure support
-   - Prompt management system
-   - Response validation with safety checks
-   - Semantic caching system
-   - Comprehensive test coverage
+### Completed ✅
+1. Core Infrastructure
+   - Basic project structure
+   - Database schema and migrations
+   - OpenAI integration with rate limiting
+   - Initial test suite with >90% coverage
 
 ### In Progress 🚀
-1. UI Development (Priority)
-   - Next.js project setup
-   - Supabase Auth integration
-   - Basic dashboard implementation
-   - Client configuration interface
+1. Next.js Dashboard Setup (Task 1)
+   - Attempted to create project structure
+   - Need to properly initialize with our requirements
+   - Blocked: Need to decide on component library and auth flow
 
-2. OpenAI Integration (Final Touches)
-   - Rate limiting implementation
-   - Basic monitoring system
-   - Simple error handling
+2. Core Tweet Generation (Task 2)
+   - OpenAI integration exists
+   - Need to implement TweetGenerator class
+   - Need to add scheduling logic
 
-3. Twitter Integration
-   - Basic client implementation
-   - Tweet posting functionality
-   - Error handling
+### Next Immediate Steps (Priority Order)
+1. Core Components (Backend)
+   - [ ] Create TweetGenerator class
+     * Define interface
+     * Implement core logic
+     * Add comprehensive tests
+     * Success Criteria: Can generate tweets with proper validation
 
-### Pending Tasks 📋
-1. Essential UI Features (MVP)
-   - [ ] Authentication & Login
-     * Supabase Auth setup
-     * Login/logout flow
-     * Session management
-     * Success Criteria: Secure client login working
+   - [ ] Implement TwitterClient interface
+     * Define interface methods
+     * Create mock implementation
+     * Add test suite
+     * Success Criteria: Complete interface with mock ready for real implementation
 
-   - [ ] Dashboard Overview
-     * Tweet status display
-     * Basic stats view
-     * Activity feed
-     * Success Criteria: Clients can view their bot status
+2. Dashboard (Frontend)
+   - [ ] Initialize Next.js project properly
+     * Set up project structure
+     * Configure TypeScript
+     * Add Supabase client
+     * Success Criteria: Project runs with proper configuration
 
-   - [ ] Configuration Management
-     * Bot settings form
-     * Posting schedule setup
-     * API key management
-     * Success Criteria: Clients can configure their bots
+   - [ ] Implement auth flow
+     * Set up Supabase Auth
+     * Create login/signup pages
+     * Add session management
+     * Success Criteria: Working authentication flow
 
-   - [ ] Activity Monitoring
-     * Tweet history view
-     * Error reporting
-     * Usage statistics
-     * Success Criteria: Clients can monitor bot activity
+### Blockers and Dependencies 🚧
+1. Technical Decisions Needed:
+   - UI component library selection (Shadcn vs MaterialUI vs others)
+   - State management approach (React Query + Context vs Redux)
+   - Testing strategy for frontend (Jest + React Testing Library)
 
-2. Core Engine Features (MVP)
-   - [ ] Simple Scheduler
-     * Basic time-based scheduling
-     * Round-robin client rotation
-     * Success Criteria: Tweets post on schedule
+2. Required Information:
+   - Supabase project configuration for dashboard
+   - Twitter API access requirements
+   - Deployment environment details
 
-   - [ ] Tweet Generation
-     * OpenAI integration
-     * Basic prompt handling
-     * Success Criteria: Generates appropriate tweets
+### Risk Assessment 🎯
+1. High Priority Risks:
+   - Test coverage might drop below 90% with new components
+   - Twitter API integration complexity
+   - Auth flow security considerations
 
-   - [ ] Tweet Posting
-     * Twitter API integration
-     * Status tracking
-     * Success Criteria: Tweets post successfully
+2. Mitigation Strategies:
+   - Implement TDD from the start
+   - Create comprehensive mocks for Twitter API
+   - Follow Supabase Auth best practices
 
-3. Basic Monitoring (MVP)
-   - [ ] Error Logging
-     * File-based logging
-     * Error surfacing in UI
-     * Success Criteria: Issues are visible and trackable
+## Executor's Feedback or Assistance Requests
+Need decision on:
+1. UI component library preference
+2. State management approach
+3. Testing strategy for frontend
 
-   - [ ] Usage Tracking
-     * API call counting
-     * Rate limit monitoring
-     * Success Criteria: Usage stays within limits
+## Next Actions for Executor
+1. Start with TweetGenerator class implementation
+   - Follow TDD approach
+   - Ensure >90% test coverage
+   - Use existing OpenAI integration
 
-### Post-MVP Backlog 📋
-1. Advanced UI Features
-   - Analytics dashboard
-   - Prompt management interface
-   - User management system
-   - Advanced configuration options
+2. Create TwitterClient interface
+   - Define clear interface methods
+   - Implement mock version
+   - Add comprehensive tests
 
-2. Performance Optimization
-   - Multi-threading support
-   - Advanced scheduling
-   - Caching improvements
-   - A/B testing framework
-
-3. Enhanced Monitoring
-   - Prometheus integration
-   - Grafana dashboards
-   - Advanced alerting
-   - Detailed analytics
+Would you like to proceed with any of these specific tasks or need clarification on any points?
 
 ## Key Challenges and Analysis
 1. Twitter API Integration
@@ -429,4 +511,502 @@ MVP Development for 5 Initial Clients:
 1. What are the expected rate limits per client?
 2. What monitoring metrics are most critical?
 3. What is the expected scale for the initial deployment?
-4. What are the recovery time objectives (RTO) and recovery point objectives (RPO)? 
+4. What are the recovery time objectives (RTO) and recovery point objectives (RPO)?
+
+# Clara Engine Development Scratchpad
+
+## Background and Motivation
+Clara Engine currently has a robust backend implementation with:
+- OpenAI integration for tweet generation
+- Twitter API integration for posting
+- Multi-tenant client management
+- Database layer with Supabase
+- Core engine with scheduler
+- CLI interface for management
+- Knowledge base integration
+- Metrics and monitoring
+
+The next major milestone is developing a user interface to allow clients to self-manage their Twitter bots.
+
+## Key Challenges and Analysis
+
+1. **Current Access Methods**
+   - CLI interface requires technical knowledge
+   - No self-service capabilities for clients
+   - Manual intervention needed for client onboarding
+
+2. **UI Requirements Analysis**
+   - Need secure authentication system
+   - Client dashboard for bot management
+   - Analytics and performance metrics
+   - Configuration interface
+   - Tweet history and scheduling
+
+3. **Technical Considerations**
+   - Backend API needs to be exposed securely
+   - Real-time updates for bot status
+   - Responsive design for mobile access
+   - Security best practices
+
+## High-level Task Breakdown
+
+1. **Backend API Layer**
+   - [ ] Design RESTful API endpoints
+   - [ ] Implement authentication middleware
+   - [ ] Add rate limiting for API endpoints
+   - [ ] Create API documentation
+   Success Criteria:
+   - All necessary endpoints documented and tested
+   - Authentication working with JWT tokens
+   - Rate limiting prevents abuse
+   - Swagger/OpenAPI documentation available
+
+2. **Frontend Foundation**
+   - [ ] Set up Next.js project structure
+   - [ ] Configure TypeScript and ESLint
+   - [ ] Set up component library (e.g., Tailwind UI)
+   - [ ] Implement authentication flows
+   Success Criteria:
+   - Project builds successfully
+   - Development environment configured
+   - Basic routing working
+   - Authentication flow tested
+
+3. **Core UI Components**
+   - [ ] Create layout components
+   - [ ] Build navigation system
+   - [ ] Implement dashboard widgets
+   - [ ] Design form components
+   Success Criteria:
+   - Components are reusable
+   - Responsive design works
+   - Accessibility standards met
+   - Unit tests passing
+
+4. **Main Features**
+   - [ ] Client registration/onboarding
+   - [ ] Bot configuration interface
+   - [ ] Tweet scheduling calendar
+   - [ ] Analytics dashboard
+   - [ ] Settings management
+   Success Criteria:
+   - Features match CLI capabilities
+   - Intuitive user experience
+   - Real-time updates working
+   - Error handling implemented
+
+5. **Integration and Testing**
+   - [ ] Connect frontend to API
+   - [ ] Implement error handling
+   - [ ] Add loading states
+   - [ ] Write integration tests
+   Success Criteria:
+   - All features working end-to-end
+   - Error states handled gracefully
+   - Performance metrics acceptable
+   - Test coverage adequate
+
+## Project Status Board
+- [x] Backend core functionality complete
+- [x] CLI interface implemented
+- [ ] Backend API layer started
+- [ ] Frontend project initialized
+- [ ] UI components designed
+- [ ] Integration testing setup
+
+## Executor's Feedback or Assistance Requests
+- Need to decide on UI component library
+- Consider authentication provider options
+- Plan API versioning strategy
+- Determine hosting requirements
+
+## Lessons
+- Include info useful for debugging in the program output
+- Read the file before you try to edit it
+- If there are vulnerabilities that appear in the terminal, run npm audit before proceeding
+- Always ask before using the -force git command
+- Document API endpoints as they're developed
+- Follow mobile-first design principles
+
+## Current Focus: API & Dashboard Implementation
+
+### Locked Decisions ✅
+- **Auth**: Supabase Auth (email magic-link)
+- **UI kit**: TailwindCSS + shadcn/ui
+- **API**: FastAPI REST, versioned under `/v1`
+- **API rate limit**: 60 req/min per authenticated user
+- **Docs**: FastAPI autogen OpenAPI
+
+### Task 1: Backend API Layer
+
+#### 1.1 FastAPI App Structure
+```
+clara_engine/
+└── api/
+    ├── __init__.py
+    ├── main.py           # FastAPI app setup
+    ├── middleware/
+    │   ├── __init__.py
+    │   ├── auth.py      # Supabase JWT verification
+    │   └── limiter.py   # Redis rate limiting
+    ├── routes/
+    │   ├── __init__.py
+    │   ├── tweets.py    # GET /v1/tweets
+    │   ├── config.py    # POST /v1/config
+    │   └── status.py    # GET /v1/status
+    ├── models/
+    │   ├── __init__.py
+    │   └── api.py       # Pydantic models for API
+    └── deps.py          # Dependency injection
+```
+
+#### 1.2 Implementation Steps
+1. [ ] Set up FastAPI app structure
+   - Create directory structure
+   - Add FastAPI dependencies to requirements.txt
+   - Configure CORS and middleware
+   Success Criteria:
+   - App starts without errors
+   - OpenAPI docs accessible at /docs
+
+2. [ ] Implement Supabase JWT middleware
+   - Add JWT verification
+   - Extract client ID from token
+   - Handle auth errors
+   Success Criteria:
+   - Middleware correctly validates Supabase JWTs
+   - Protected routes require valid token
+
+3. [ ] Add rate limiting
+   - Set up FastAPI-Limiter with Redis
+   - Configure 60 req/min per user
+   - Add rate limit headers
+   Success Criteria:
+   - Rate limits enforced correctly
+   - Headers show remaining requests
+
+4. [ ] Implement API endpoints
+   - GET /v1/tweets endpoint
+   - POST /v1/config endpoint
+   - GET /v1/status endpoint
+   Success Criteria:
+   - All endpoints return correct responses
+   - Input validation working
+   - Error handling in place
+
+5. [ ] Write tests
+   - Unit tests for each endpoint
+   - Auth middleware tests
+   - Rate limit tests
+   Success Criteria:
+   - ≥90% test coverage
+   - All edge cases covered
+
+### Task 2: Dashboard Scaffold
+
+#### 2.1 Next.js App Structure
+```
+apps/
+└── dashboard/
+    ├── src/
+    │   ├── app/
+    │   │   ├── layout.tsx
+    │   │   ├── page.tsx
+    │   │   ├── (auth)/
+    │   │   │   ├── login/
+    │   │   │   └── signup/
+    │   │   └── dashboard/
+    │   │       ├── layout.tsx
+    │   │       ├── page.tsx
+    │   │       ├── bots/
+    │   │       ├── tweets/
+    │   │       ├── analytics/
+    │   │       └── settings/
+    │   ├── components/
+    │   │   ├── ui/
+    │   │   ├── auth/
+    │   │   ├── dashboard/
+    │   │   └── shared/
+    │   ├── lib/
+    │   │   ├── api/
+    │   │   ├── auth/
+    │   │   └── utils/
+    │   └── styles/
+    ├── public/
+    └── tests/
+```
+
+#### 2.2 Implementation Steps
+1. [ ] Set up Next.js project
+   - Create project with create-next-app
+   - Add TypeScript, Tailwind, shadcn/ui
+   - Configure ESLint and Prettier
+   Success Criteria:
+   - Project builds successfully
+   - Development server runs
+
+2. [ ] Add Supabase Auth
+   - Set up Supabase client
+   - Create auth provider
+   - Implement magic link flow
+   Success Criteria:
+   - Auth flow works end-to-end
+   - Protected routes working
+
+3. [ ] Create basic pages
+   - Login page
+   - Dashboard layout
+   - Empty tweet list
+   Success Criteria:
+   - Pages render correctly
+   - Navigation works
+   - Layout is responsive
+
+4. [ ] Set up testing
+   - Configure Jest + React Testing Library
+   - Add snapshot test
+   - Set up coverage reporting
+   Success Criteria:
+   - Tests pass
+   - Coverage ≥90%
+
+### Task 3: CI Integration
+
+#### 3.1 GitHub Workflow Updates
+1. [ ] Update CI workflow
+   - Add dashboard build step
+   - Configure test runners
+   - Set up coverage reporting
+   Success Criteria:
+   - All checks pass
+   - Coverage meets target
+
+#### 3.2 Implementation Steps
+1. [ ] Modify .github/workflows/ci.yml
+   - Add Node.js setup
+   - Add dashboard build/test steps
+   - Configure coverage reporting
+   Success Criteria:
+   - CI pipeline passes
+   - Coverage reports generated
+
+## Current Status
+- [ ] Backend API implementation started
+- [ ] Dashboard scaffold pending
+- [ ] CI updates pending
+
+## Executor's Feedback or Assistance Requests
+1. Need Redis connection details for rate limiting
+2. Need Supabase project details for auth setup
+3. Need to confirm test coverage configuration
+
+## Next Actions
+1. Start with FastAPI app scaffold
+2. Implement JWT middleware
+3. Add rate limiting
+4. Create API endpoints
+5. Set up Next.js project
+
+## Success Criteria
+- All API endpoints implemented and tested
+- Dashboard scaffold with auth flow working
+- CI pipeline passing with ≥90% coverage
+- OpenAPI docs available and accurate
+- Rate limiting functioning correctly
+
+## Lessons
+- Document API endpoints as they're developed
+- Follow TDD for new components
+- Keep CI pipeline updated with new components
+- Maintain type safety across the stack
+
+# Clara Engine UI Implementation Plan
+
+## Background and Motivation
+Clara Engine needs a user interface to allow clients to self-manage their Twitter bots. The UI will provide:
+- Client registration and authentication
+- Bot configuration and management
+- Tweet history and scheduling
+- Analytics and performance metrics
+- Settings management
+
+## Key Challenges and Analysis
+
+1. **Technical Stack Selection**
+   - Next.js 14 (App Router) for frontend
+   - Tailwind CSS + shadcn/ui for components
+   - Supabase Auth for authentication
+   - React Query for state management
+
+2. **Core Requirements**
+   - Secure authentication system
+   - Real-time bot status updates
+   - Responsive design
+   - Performance monitoring
+   - Error handling
+
+3. **Integration Points**
+   - Backend API endpoints
+   - Supabase authentication
+   - Real-time updates
+   - Analytics data
+
+## High-level Task Breakdown
+
+### 1. Frontend Project Setup
+- [ ] Initialize Next.js project
+  - Create project structure
+  - Configure TypeScript
+  - Set up Tailwind CSS
+  - Add shadcn/ui components
+  Success Criteria:
+  - Project builds successfully
+  - Development environment works
+  - Component library accessible
+
+### 2. Authentication Implementation
+- [ ] Set up Supabase Auth
+  - Configure auth provider
+  - Create login/signup pages
+  - Implement protected routes
+  - Add session management
+  Success Criteria:
+  - Users can sign up and log in
+  - Protected routes work
+  - Session persistence works
+
+### 3. Core UI Components
+- [ ] Create base components
+  - Layout system
+  - Navigation
+  - Dashboard components
+  - Forms and inputs
+  Success Criteria:
+  - Components are reusable
+  - Styling is consistent
+  - Components are accessible
+
+### 4. Main Features
+- [ ] Implement key functionality
+  - Client dashboard
+  - Bot configuration
+  - Tweet scheduling
+  - Analytics views
+  Success Criteria:
+  - Features match CLI capabilities
+  - UI is intuitive
+  - Real-time updates work
+
+### 5. API Integration
+- [ ] Connect to backend
+  - API client setup
+  - Error handling
+  - Loading states
+  - Data caching
+  Success Criteria:
+  - All API calls work
+  - Error states handled
+  - Performance is good
+
+## Project Status Board
+- [x] Backend API ready
+- [ ] Frontend project setup
+- [ ] Authentication flow
+- [ ] Core components
+- [ ] Feature implementation
+- [ ] API integration
+
+## Next Actions
+1. Initialize Next.js project with required dependencies
+2. Set up Supabase authentication
+3. Create core UI components
+4. Implement main features
+5. Connect to backend API
+
+## Success Criteria
+- All features from CLI available in UI
+- Responsive design works on all devices
+- Real-time updates functioning
+- Error handling implemented
+- Performance metrics acceptable
+
+## Technical Dependencies
+1. Frontend
+   - Next.js 14
+   - Tailwind CSS
+   - shadcn/ui
+   - React Query
+   - TypeScript
+
+2. Backend
+   - FastAPI endpoints
+   - Supabase Auth
+   - WebSocket support
+   - Rate limiting
+
+## Directory Structure
+```
+apps/
+└── dashboard/
+    ├── src/
+    │   ├── app/
+    │   │   ├── layout.tsx
+    │   │   ├── page.tsx
+    │   │   ├── (auth)/
+    │   │   │   ├── login/
+    │   │   │   └── signup/
+    │   │   └── dashboard/
+    │   │       ├── layout.tsx
+    │   │       ├── page.tsx
+    │   │       ├── bots/
+    │   │       ├── tweets/
+    │   │       ├── analytics/
+    │   │       └── settings/
+    │   ├── components/
+    │   │   ├── ui/
+    │   │   ├── auth/
+    │   │   ├── dashboard/
+    │   │   └── shared/
+    │   ├── lib/
+    │   │   ├── api/
+    │   │   ├── auth/
+    │   │   └── utils/
+    │   └── styles/
+    ├── public/
+    └── tests/
+```
+
+## Implementation Phases
+
+### Phase 1: Project Setup (2 days)
+1. Initialize Next.js project
+2. Configure development environment
+3. Set up component library
+4. Create base layout
+
+### Phase 2: Authentication (2 days)
+1. Implement Supabase Auth
+2. Create login/signup flows
+3. Add protected routes
+4. Handle session management
+
+### Phase 3: Core Features (3 days)
+1. Dashboard implementation
+2. Bot management
+3. Tweet scheduling
+4. Settings management
+
+### Phase 4: Analytics & Polish (2 days)
+1. Analytics dashboard
+2. Performance optimization
+3. Error handling
+4. Final testing
+
+## Lessons
+- Follow mobile-first design
+- Implement proper error handling
+- Use TypeScript strictly
+- Keep components modular
+- Document as we go
+
+Would you like to proceed with Phase 1: Project Setup? 
