@@ -3,6 +3,21 @@
 ## Background and Motivation
 Clara Engine is a multi-tenant AI bot platform that enables the deployment of personalized GPT-powered Twitter bots for multiple clients from a single, centralized codebase.
 
+**End product:** A multi-tenant SaaS where any user can sign-up, log-in, create one or more autonomous X (Twitter) bots (each with its own persona, schedule, and credentials) and manage them from a dashboard.
+
+## Data Model
+
+| Table / Concept      | Purpose                                                  |
+|----------------------|----------------------------------------------------------|
+| **users**            | Supabase Auth users (owner of billing & bots)            |
+| **bots**             | 1 row per bot (was "clients"); links to `users.id`       |
+| **twitter_credentials** | Encrypted access + refresh tokens, FK → bots.id     |
+| **bot_templates**    | Optional stock personae a user can start from           |
+| **subscriptions**    | Stripe plan ↔ user (quota & billing status)              |
+| **user_bots**        | Many–to–many if team sharing is enabled later            |
+
+*Row-level security: every select/update on `bots`, `twitter_credentials` is constrained to `auth.uid()`.*
+
 ## Current Implementation Status
 
 ### Completed Components
@@ -77,6 +92,8 @@ Clara Engine is a multi-tenant AI bot platform that enables the deployment of pe
 ## High-level Task Breakdown
 
 ### Next Priority Tasks
+0. **(Prep)** implement Epic A migrations & models first — UI and engine depend on it.
+
 1. [ ] Complete metrics implementation
    - Write tests for MetricsCollector
    - Implement Prometheus/Grafana dashboards
@@ -1009,4 +1026,25 @@ apps/
 - Keep components modular
 - Document as we go
 
-Would you like to proceed with Phase 1: Project Setup? 
+Would you like to proceed with Phase 1: Project Setup?
+
+## SaaS Epics
+
+### SaaS Epic A — **User & Bot Tables**
+* create `bots`, `twitter_credentials`, `subscriptions`
+* row-level policies + Pydantic models
+* ≥95 % test coverage
+
+### SaaS Epic B — **Twitter OAuth Flow**
+* public `/oauth/twitter` + callback route
+* store encrypted tokens (libsodium or pgcrypto)
+* revoke / re-auth path
+* Cypress e2e test
+
+### SaaS Epic C — **Bot-Creation Wizard**
+* UI: "New Bot" button → 3-step wizard  
+  1. pick template (or blank)  
+  2. connect Twitter account  
+  3. pick schedule & finish
+* API: `POST /v1/bots` (creates bot, schedules job)
+* success = user lands on bot dashboard and sees status "active" 
