@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggers
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Deploy to Render
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+      run: |
+        curl -X POST "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys" \
+          -H "accept: application/json" \
+          -H "authorization: Bearer $RENDER_API_KEY"
+
+    - name: Wait for deployment
+      run: |
+        echo "Waiting for deployment to complete..."
+        sleep 60  # Give Render time to start the deployment
+
+    - name: Check deployment status
+      env:
+        RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+        RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+      run: |
+        DEPLOY_STATUS=$(curl -s \
+          -H "accept: application/json" \
+          -H "authorization: Bearer $RENDER_API_KEY" \
+          "https://api.render.com/v1/services/$RENDER_SERVICE_ID/deploys?limit=1" \
+          | jq -r '.[0].status')
+        
+        if [ "$DEPLOY_STATUS" != "live" ]; then
+          echo "Deployment failed or is still in progress. Status: $DEPLOY_STATUS"
+          exit 1
+        fi
+        
+        echo "Deployment successful!"
+
+    - name: Notify on failure
+      if: failure()
+      run: |
+        echo "Deployment failed!"
+        # Add notification logic here (e.g., Slack, email) 

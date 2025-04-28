@@ -4,13 +4,20 @@
 # Database related files
 clara_engine/db.py @yourusername
 migrations/* @yourusername
+scripts/setup_db.py @yourusername
+scripts/create_exec_sql.py @yourusername
 
 # Core engine files
 clara_engine/openai/* @yourusername
 clara_engine/twitter/* @yourusername
+clara_engine/models.py @yourusername
 
 # Test files
 tests/* @yourusername
+
+# CI/CD Configuration
+.github/workflows/* @yourusername
+.pre-commit-config.yaml @yourusername
 
 # Configuration files
 *.yml @yourusername
@@ -20,4 +27,8 @@ tests/* @yourusername
 
 # Security sensitive files
 .env.example @yourusername
-requirements*.txt @yourusername 
+requirements*.txt @yourusername
+
+# Documentation
+*.md @yourusername
+docs/* @yourusername 
