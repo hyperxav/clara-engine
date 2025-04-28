@@ -1,0 +1,23 @@
+# Default owners for everything in the repo
+* @yourusername
+
+# Database related files
+clara_engine/db.py @yourusername
+migrations/* @yourusername
+
+# Core engine files
+clara_engine/openai/* @yourusername
+clara_engine/twitter/* @yourusername
+
+# Test files
+tests/* @yourusername
+
+# Configuration files
+*.yml @yourusername
+*.yaml @yourusername
+*.ini @yourusername
+*.toml @yourusername
+
+# Security sensitive files
+.env.example @yourusername
+requirements*.txt @yourusername 
